@@ -55,11 +55,11 @@ export function QuranScreen() {
             </div>
           </OrnateFrame>
           {loadingS ? <Loader msg="Loading surah…"/> : ayahs.map((a,i)=>(
-            <div key={i} style={{marginBottom:13,padding:14,borderRadius:11,background:a.isBismillah?`${C.gold}08`:C.card,border:`1px solid ${a.isBismillah?C.goldDim:C.border}`}}>
+            <div key={i} style={{marginBottom:13,padding:14,borderRadius:11,background:C.card,border:`1px solid ${C.border}`}}>
               {!a.isBismillah && (
                 <div style={{width:28,height:28,borderRadius:'50%',background:`${C.gold}18`,border:`1px solid ${C.gold}`,display:'flex',alignItems:'center',justifyContent:'center',fontSize:11,color:C.gold,fontWeight:700,marginBottom:10}}>{a.number}</div>
               )}
-              <div style={{fontSize:a.isBismillah?18:20,color:a.isBismillah?C.goldLight:C.text,fontFamily:'Georgia,serif',textAlign:'center',lineHeight:1.9,marginBottom:8}}>{a.arabic}</div>
+              <div style={{fontSize:20,color:C.text,fontFamily:'Georgia,serif',textAlign:'center',lineHeight:1.9,marginBottom:8}}>{a.arabic}</div>
               {showTr&&<div style={{fontSize:12,color:C.textDim,lineHeight:1.7,fontStyle:'italic',borderTop:`1px solid ${C.border}`,paddingTop:8,textAlign:'center'}}>{a.english}</div>}
             </div>
           ))}
