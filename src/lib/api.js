@@ -28,7 +28,7 @@ export async function fetchSurahList() {
 export async function fetchSurah(number) {
   const [arRes, enRes] = await Promise.all([
     fetch(`https://api.alquran.cloud/v1/surah/${number}/quran-uthmani`),
-    fetch(`https://api.alquran.cloud/v1/surah/${number}/en.asad`),
+    fetch(`https://api.alquran.cloud/v1/surah/${number}/en.sahih`),
   ])
   const [ar, en] = await Promise.all([arRes.json(), enRes.json()])
   const ayahs = ar.data.ayahs.map((a, i) => ({
