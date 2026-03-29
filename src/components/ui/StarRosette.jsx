@@ -5,7 +5,7 @@ export function StarRosette({ size = 44 }) {
   return (
     <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
       <polygon points={outerPts} fill={C.gold} opacity="0.85"/>
-      <circle cx={cx} cy={cy} r={size*0.28} fill={C.card}/>
+      <circle cx={cx} cy={cy} r={size*0.28} fill={C.bg}/>
     </svg>
   )
 }
