@@ -25,17 +25,32 @@ export async function fetchSurahList() {
   return data
 }
 
+const BISMILLAH = 'بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ'
+const BISMILLAH2 = 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ'
+
 export async function fetchSurah(number) {
   const [arRes, enRes] = await Promise.all([
     fetch(`https://api.alquran.cloud/v1/surah/${number}/quran-uthmani`),
     fetch(`https://api.alquran.cloud/v1/surah/${number}/en.sahih`),
   ])
   const [ar, en] = await Promise.all([arRes.json(), enRes.json()])
-  const ayahs = ar.data.ayahs.map((a, i) => ({
-    number: a.numberInSurah,
-    arabic: a.text,
-    english: en.data.ayahs[i]?.text ?? '',
-  }))
+  const ayahs = ar.data.ayahs.map((a, i) => {
+    let arabic = a.text
+    let english = en.data.ayahs[i]?.text ?? ''
+    if (i === 0 && number !== 1 && number !== 9) {
+      arabic = arabic.replace(BISMILLAH, '').replace(BISMILLAH2, '').trim()
+      english = english.replace('In the name of Allah, the Entirely Merciful, the Especially Merciful.', '').trim()
+    }
+    return { number: a.numberInSurah, arabic, english }
+  })
+  if (number !== 1 && number !== 9) {
+    ayahs.unshift({
+      number: 0,
+      arabic: BISMILLAH,
+      english: 'In the name of Allah, the Entirely Merciful, the Especially Merciful.',
+      isBismillah: true,
+    })
+  }
   return { number: ar.data.number, name: ar.data.name, englishName: ar.data.englishName, meaning: ar.data.englishNameTranslation, type: ar.data.revelationType, ayahs }
 }
 
