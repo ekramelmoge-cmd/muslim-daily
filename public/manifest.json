@@ -1,0 +1,18 @@
+{
+  "name": "Muslim Daily",
+  "short_name": "Muslim Daily",
+  "description": "Prayer times, Qibla, Adhan & Quran",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0e1a",
+  "theme_color": "#c9a84c",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
