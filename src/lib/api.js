@@ -25,28 +25,27 @@ export async function fetchSurahList() {
   return data
 }
 
-const BISMILLAH = 'بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ'
-const BISMILLAH2 = 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ'
-
 export async function fetchSurah(number) {
   const [arRes, enRes] = await Promise.all([
-    fetch(`https://api.alquran.cloud/v1/surah/${number}/quran-uthmani`),
+    fetch(`https://api.alquran.cloud/v1/surah/${number}/quran-simple`),
     fetch(`https://api.alquran.cloud/v1/surah/${number}/en.sahih`),
   ])
   const [ar, en] = await Promise.all([arRes.json(), enRes.json()])
+  const hasBismillah = ar.data.ayahs[0]?.text?.startsWith('\u0628\u0650\u0633\u0652\u0645\u0650')
   const ayahs = ar.data.ayahs.map((a, i) => {
     let arabic = a.text
     let english = en.data.ayahs[i]?.text ?? ''
-    if (i === 0 && number !== 1 && number !== 9) {
-      arabic = arabic.replace(BISMILLAH, '').replace(BISMILLAH2, '').trim()
-      english = english.replace('In the name of Allah, the Entirely Merciful, the Especially Merciful.', '').trim()
+    if (i === 0 && number !== 1 && number !== 9 && hasBismillah) {
+      const parts = arabic.split(' ')
+      arabic = parts.slice(4).join(' ').trim()
+      english = english.replace(/^In the name of Allah.*?Merciful\.\s*/i, '').trim()
     }
     return { number: a.numberInSurah, arabic, english }
   })
   if (number !== 1 && number !== 9) {
     ayahs.unshift({
-      number: 0,
-      arabic: BISMILLAH,
+      number: 'B',
+      arabic: '\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u0651\u064e\u0647\u0650 \u0627\u0644\u0631\u0651\u064e\u062d\u0652\u0645\u064e\u0670\u0646\u0650 \u0627\u0644\u0631\u0651\u064e\u062d\u0650\u064a\u0645\u0650',
       english: 'In the name of Allah, the Entirely Merciful, the Especially Merciful.',
       isBismillah: true,
     })
