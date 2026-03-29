@@ -1,0 +1,17 @@
+export const C = {
+  bg:         "#0a0e1a",
+  surface:    "#111827",
+  card:       "#1a2235",
+  cardHover:  "#1f2a40",
+  gold:       "#c9a84c",
+  goldLight:  "#e8c97a",
+  goldDim:    "#7a6230",
+  goldGlow:   "#c9a84c33",
+  teal:       "#2dd4bf",
+  text:       "#f0e6c8",
+  textDim:    "#8a7a5a",
+  border:     "#2a3550",
+  borderGold: "#3a2e14",
+  green:      "#22c55e",
+  red:        "#ef4444",
+}
