@@ -85,7 +85,7 @@ export function QuranScreen() {
           <div key={s.number} onClick={()=>openSurah(s)} style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'12px 4px',cursor:'pointer',borderBottom:`1px solid ${C.border}55`}}>
             <div style={{display:'flex',alignItems:'center',gap:12}}>
               <div style={{width:36,height:36,flexShrink:0,position:'relative'}}>
-                <StarRosette size={36}/>
+                <StarRosette size={36} label={s.number}/>
                 <div style={{position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',fontSize:11,color:C.bg,fontWeight:700}}>{s.number}</div>
               </div>
               <div>
